@@ -1,13 +1,20 @@
 import React from "react";
-import friends from "./friends.json";
+import axios from "axios";
 
 class FriendsTable extends React.Component {
     state = {
-        friends: friends,
+        friends: [],
         order: "ascending"
     }
 
-    handleNameSort = () => {
+    componentDidMount() {
+        axios.get("https://randomuser.me/api/?results=10&nat=us").then((res) => {
+                console.log(res.data);
+                this.setState({friends: res.data.results});
+            });
+    }
+
+    handleFirstNameSort = () => {
         if (this.state.order === "ascending") {
             this.setState({ order: "descending" });
         }
@@ -19,10 +26,10 @@ class FriendsTable extends React.Component {
     render() {
         const sortedFriends = this.state.friends.sort((a, b) => {
             if (this.state.order === "ascending") {
-                if (a.name < b.name) {
+                if (a.name.first < b.name.first) {
                     return -1;
                 }
-                else if (b.name < a.name) {
+                else if (b.name.first < a.name.first) {
                     return 1;
                 }
                 else {
@@ -30,10 +37,10 @@ class FriendsTable extends React.Component {
                 }
             }
             else {
-                if (a.name < b.name) {
+                if (a.name.first < b.name.first) {
                     return 1;
                 }
-                else if (b.name < a.name) {
+                else if (b.name.first < a.name.first) {
                     return -1;
                 }
                 else {
@@ -43,11 +50,11 @@ class FriendsTable extends React.Component {
         })
 
         return <div>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th onClick={this.handleNameSort} scope="col">First</th>
+                        <th onClick={this.handleFirstNameSort} scope="col">First</th>
                         <th scope="col">Last</th>
                         <th scope="col">Handle</th>
                     </tr>
@@ -55,12 +62,11 @@ class FriendsTable extends React.Component {
                 <tbody>
                     {sortedFriends.map((elem) => {
                         return (
-                        <tr key={elem.id}>
-                            <th scope="row">1</th>
-                            <td>{elem.name}</td>
-                            <td>{elem.occupation}</td>
-                            <td>{elem.location}</td>
-                        </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>{elem.name.first}</td>
+                                <td>{elem.name.last}</td>
+                            </tr>
                         )
                     })}
                 </tbody>
