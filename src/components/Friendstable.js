@@ -11,6 +11,7 @@ class FriendsTable extends React.Component {
     componentDidMount() {
         axios.get("https://randomuser.me/api/?results=10&nat=us").then((res) => {
             this.setState({ friends: res.data.results });
+            console.log(res.data.results);
         });
     }
 
@@ -62,18 +63,19 @@ class FriendsTable extends React.Component {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th onClick={this.handleFirstNameSort} scope="col">First</th>
+    <th onClick={this.handleFirstNameSort} scope="col">First {this.state.order === "ascending" ? "(Asc)" : "(Des)"}</th>
                         <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Email</th>
                     </tr>
                 </thead>
                 <tbody>
                     {sortedFriends.map((elem) => {
                         return (
                             <tr key={elem.name.first + elem.name.last}>
-                                <th scope="row">1</th>
+                                <th scope="row"><img src={elem.picture.thumbnail}/></th>
                                 <td>{elem.name.first}</td>
                                 <td>{elem.name.last}</td>
+                                <td>{elem.email}</td>
                             </tr>
                         )
                     })}
