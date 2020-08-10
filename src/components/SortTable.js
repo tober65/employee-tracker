@@ -63,7 +63,7 @@ class FriendsTable extends React.Component {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-    <th onClick={this.handleFirstNameSort} scope="col">First {this.state.order === "ascending" ? "(Asc)" : "(Des)"}</th>
+                        <th onClick={this.handleFirstNameSort} scope="col">First {this.state.order === "ascending" ? "(Asc)" : "(Des)"}</th>
                         <th scope="col">Last</th>
                         <th scope="col">Email</th>
                     </tr>
@@ -72,7 +72,7 @@ class FriendsTable extends React.Component {
                     {sortedFriends.map((elem) => {
                         return (
                             <tr key={elem.name.first + elem.name.last}>
-                                <th scope="row"><img src={elem.picture.thumbnail}/></th>
+                                <th scope="row"><img src={elem.picture.thumbnail} /></th>
                                 <td>{elem.name.first}</td>
                                 <td>{elem.name.last}</td>
                                 <td>{elem.email}</td>

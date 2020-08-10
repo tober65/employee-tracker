@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import FriendsTable from "./components/Friendstable";
+import SortTable from "./components/SortTable";
 
 function App() {
   return (
-    <FriendsTable />    
+    <SortTable />    
   );
 }
 
